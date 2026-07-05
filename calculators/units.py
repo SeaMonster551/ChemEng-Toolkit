@@ -23,4 +23,13 @@ def convert_temperature(value, from_unit, to_unit):
         return celsius * 9 / 5 + 32
     elif to_unit == "Kelvin (K)":
         return celsius + 273.15
-    
+
+PRESSURE_UNITS = {
+    "Pa": 1,
+    "kPa": 1000,
+    "MPa": 1000000,
+    "bar": 100000,
+    "atm": 101325,
+    "psi": 6894.76,
+    "torr": 133.322,
+}
