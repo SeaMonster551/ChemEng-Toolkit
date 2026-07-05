@@ -1,14 +1,37 @@
-"""Entry point for the ChemEng Toolkit application."""
+import streamlit as st
 
-from calculators.ideal_gas import ideal_gas_law
+from views import home, unit_converter, ideal_gas, fluid_flow, heat_transfer
 
+st.set_page_config(
+    page_title="Chemical Engineering Toolkit",
+    page_icon="⚗️",
+    layout="wide",
+)
 
-def main() -> None:
-    """Print a simple startup message and a sample calculation."""
-    sample = ideal_gas_law(1.0, 8.314, 298.0)
-    print("ChemEng Toolkit is ready.")
-    print(f"Example ideal gas result: {sample:.3f} Pa·m^3")
+st.sidebar.title("Chemical Engineering Toolkit")
 
+page = st.sidebar.radio(
+    "Modules",
+    [
+        "Home",
+        "Unit Converter",
+        "Ideal Gas Law",
+        "Fluid Flow",
+        "Heat Transfer",
+    ]
+)
 
-if __name__ == "__main__":
-    main()
+if page == "Home":
+    home.show()
+
+elif page == "Unit Converter":
+    unit_converter.show()
+
+elif page == "Ideal Gas Law":
+    ideal_gas.show()
+
+elif page == "Fluid Flow":
+    fluid_flow.show()
+
+elif page == "Heat Transfer":
+    heat_transfer.show()
