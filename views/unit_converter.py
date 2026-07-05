@@ -1,21 +1,25 @@
 import streamlit as st
-from calculators.units import PRESSURE_UNITS, TEMPERATURE_UNITS, convert_temperature, convert_units
+import calculators.units
+st.write("Imported from:", __file__)
+st.write("Categories:", calculators.units.UNIT_CATEGORIES)
 def show():
     st.title("Unit Converter")
 
+
     category = st.selectbox(
         "Select a category",
-        [
-            "Temperature",
-            "Pressure"
-            ]
+        ["Temperature",
+        calculators.units.UNIT_CATEGORIES.keys()
+        ]
     )
+    st.write(category)
+    st.write(list(calculators.units.UNIT_CATEGORIES.keys()))
 
     if category == "Temperature":
-        units = TEMPERATURE_UNITS
+        units = calculators.units.TEMPERATURE_UNITS
     
-    elif category == "Pressure":
-        units = PRESSURE_UNITS
+    else:
+        units = list(calculators.units.UNIT_CATEGORIES[category].keys())
 
     col1, col2 = st.columns(2)
     with col1:
@@ -33,9 +37,9 @@ def show():
     if st.button("Convert"):
         
         if category == "Temperature":
-            result = convert_temperature(value, from_unit, to_unit)
-            st.success(f"{value} {from_unit} = {result} {to_unit}")
+            result = calculators.units.convert_temperature(value, from_unit, to_unit)
+        else:
+            result = calculators.units.convert_units(value, from_unit, to_unit, calculators.units.UNIT_CATEGORIES[category])
+
+        st.success(f"{value} {from_unit} = {result} {to_unit}")
         
-        elif category == "Pressure":
-            result = convert_units(value, from_unit, to_unit, PRESSURE_UNITS)
-            st.success(f"{value} {from_unit} = {result} {to_unit}")
